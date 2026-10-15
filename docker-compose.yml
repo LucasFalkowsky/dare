@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: dare
+      POSTGRES_PASSWORD: dare
+      POSTGRES_DB: dare
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dare -d dare"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    # Produktionsabbild lokal: dieselben Variablen, die in Coolify gesetzt werden.
+    # Compose liest sie aus ./.env (oder der Shell); fehlende bleiben leer.
+    environment:
+      DATABASE_URL: postgresql://dare:dare@postgres:5432/dare
+      PM_PLATFORM: ${PM_PLATFORM:-gitlab}
+      GITLAB_API_URL: ${GITLAB_API_URL:-}
+      GITLAB_ACCESS_TOKEN: ${GITLAB_ACCESS_TOKEN:-}
+      GITLAB_PROJECT_PATH: ${GITLAB_PROJECT_PATH:-}
+      GITLAB_WEBHOOK_SECRET: ${GITLAB_WEBHOOK_SECRET:-}
+      GITHUB_API_URL: ${GITHUB_API_URL:-https://api.github.com}
+      GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN:-}
+      GITHUB_PROJECT_PATH: ${GITHUB_PROJECT_PATH:-}
+      GITHUB_ISSUE_FIELD_NAME: ${GITHUB_ISSUE_FIELD_NAME:-Principles}
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:
