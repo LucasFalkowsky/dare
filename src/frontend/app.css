@@ -1,0 +1,232 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * GitHub Primer design tokens.
+ *
+ * Values are taken from GitHub's @primer/primitives colour scales so the
+ * prototype reads as a GitHub surface to the developer teams testing it.
+ * The shadcn token names are kept as aliases on top of the Primer scales so
+ * the existing component layer keeps working.
+ */
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Primer scales */
+  --color-canvas: var(--canvas-default);
+  --color-canvas-subtle: var(--canvas-subtle);
+  --color-canvas-inset: var(--canvas-inset);
+  --color-fg-default: var(--fg-default);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-on-emphasis: var(--fg-on-emphasis);
+  --color-border-default: var(--border-default);
+  --color-border-muted: var(--border-muted);
+  --color-neutral-muted: var(--neutral-muted);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-emphasis: var(--accent-emphasis);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-success-fg: var(--success-fg);
+  --color-success-emphasis: var(--success-emphasis);
+  --color-success-muted: var(--success-muted);
+  --color-success-subtle: var(--success-subtle);
+  --color-attention-fg: var(--attention-fg);
+  --color-attention-muted: var(--attention-muted);
+  --color-attention-subtle: var(--attention-subtle);
+  --color-danger-fg: var(--danger-fg);
+  --color-danger-emphasis: var(--danger-emphasis);
+  --color-danger-muted: var(--danger-muted);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-done-fg: var(--done-fg);
+  --color-done-muted: var(--done-muted);
+  --color-done-subtle: var(--done-subtle);
+  --color-btn-bg: var(--btn-bg);
+  --color-btn-hover-bg: var(--btn-hover-bg);
+  --color-btn-active-bg: var(--btn-active-bg);
+  --color-btn-border: var(--btn-border);
+  --color-btn-primary-bg: var(--btn-primary-bg);
+  --color-btn-primary-hover-bg: var(--btn-primary-hover-bg);
+  --color-btn-primary-border: var(--btn-primary-border);
+  --color-underline-nav-active: var(--underline-nav-active);
+
+  /* shadcn aliases */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  /* Primer uses a flat 6px radius almost everywhere */
+  --radius-sm: 0.1875rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 1rem;
+  --radius-4xl: 1.5rem;
+
+  /* Primer elevation */
+  --shadow-btn: 0 1px 0 rgba(31, 35, 40, 0.04);
+  --shadow-overlay: 0 8px 24px rgba(66, 74, 83, 0.12);
+}
+
+:root {
+  /* Primer light */
+  --canvas-default: #ffffff;
+  --canvas-subtle: #f6f8fa;
+  --canvas-inset: #f6f8fa;
+  --fg-default: #1f2328;
+  --fg-muted: #59636e;
+  --fg-subtle: #818b98;
+  --fg-on-emphasis: #ffffff;
+  --border-default: #d1d9e0;
+  --border-muted: #d1d9e0b3;
+  --neutral-muted: #818b981f;
+  --accent-fg: #0969da;
+  --accent-emphasis: #0969da;
+  --accent-muted: #54aeff66;
+  --accent-subtle: #ddf4ff;
+  --success-fg: #1a7f37;
+  --success-emphasis: #1f883d;
+  --success-muted: #4ac26b66;
+  --success-subtle: #dafbe1;
+  --attention-fg: #9a6700;
+  --attention-muted: #d4a72c66;
+  --attention-subtle: #fff8c5;
+  --danger-fg: #d1242f;
+  --danger-emphasis: #cf222e;
+  --danger-muted: #ff818266;
+  --danger-subtle: #ffebe9;
+  --done-fg: #8250df;
+  --done-muted: #c297ff66;
+  --done-subtle: #fbefff;
+  --btn-bg: #f6f8fa;
+  --btn-hover-bg: #eff2f5;
+  --btn-active-bg: #e6eaef;
+  --btn-border: #d1d9e0;
+  --btn-primary-bg: #1f883d;
+  --btn-primary-hover-bg: #1c8139;
+  --btn-primary-border: #1f883d26;
+  --underline-nav-active: #fd8c73;
+
+  /* shadcn aliases onto the Primer scale */
+  --background: var(--canvas-default);
+  --foreground: var(--fg-default);
+  --card: var(--canvas-default);
+  --card-foreground: var(--fg-default);
+  --popover: var(--canvas-default);
+  --popover-foreground: var(--fg-default);
+  --primary: var(--btn-primary-bg);
+  --primary-foreground: var(--fg-on-emphasis);
+  --secondary: var(--btn-bg);
+  --secondary-foreground: var(--fg-default);
+  --muted: var(--canvas-subtle);
+  --muted-foreground: var(--fg-muted);
+  --accent: var(--accent-subtle);
+  --accent-foreground: var(--accent-fg);
+  --destructive: var(--danger-emphasis);
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--accent-emphasis);
+  --chart-1: #0969da;
+  --chart-2: #1f883d;
+  --chart-3: #8250df;
+  --chart-4: #9a6700;
+  --chart-5: #cf222e;
+  --radius: 0.375rem;
+  --sidebar: var(--canvas-subtle);
+  --sidebar-foreground: var(--fg-default);
+  --sidebar-primary: var(--accent-emphasis);
+  --sidebar-primary-foreground: var(--fg-on-emphasis);
+  --sidebar-accent: var(--accent-subtle);
+  --sidebar-accent-foreground: var(--accent-fg);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--accent-emphasis);
+}
+
+.dark {
+  /* Primer dark */
+  --canvas-default: #0d1117;
+  --canvas-subtle: #151b23;
+  --canvas-inset: #010409;
+  --fg-default: #f0f6fc;
+  --fg-muted: #9198a1;
+  --fg-subtle: #6e7681;
+  --fg-on-emphasis: #ffffff;
+  --border-default: #3d444d;
+  --border-muted: #3d444db3;
+  --neutral-muted: #656c7633;
+  --accent-fg: #4493f8;
+  --accent-emphasis: #1f6feb;
+  --accent-muted: #388bfd66;
+  --accent-subtle: #121d2f;
+  --success-fg: #3fb950;
+  --success-emphasis: #238636;
+  --success-muted: #2ea04366;
+  --success-subtle: #0f2417;
+  --attention-fg: #d29922;
+  --attention-muted: #bb800966;
+  --attention-subtle: #241a09;
+  --danger-fg: #f85149;
+  --danger-emphasis: #da3633;
+  --danger-muted: #f8514966;
+  --danger-subtle: #25171c;
+  --done-fg: #ab7df8;
+  --done-muted: #a371f766;
+  --done-subtle: #1d1b2e;
+  --btn-bg: #212830;
+  --btn-hover-bg: #262c36;
+  --btn-active-bg: #2a313c;
+  --btn-border: #3d444d;
+  --btn-primary-bg: #238636;
+  --btn-primary-hover-bg: #29903b;
+  --btn-primary-border: #ffffff1a;
+  --underline-nav-active: #fd8c73;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+}

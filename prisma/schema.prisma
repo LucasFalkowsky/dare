@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+model Installation {
+  installationId String @id
+  owner          String
+  repo           String
+  platform       String // 'github' | 'gitlab' | 'jira'
+}
+
+model Principle {
+  principleId    String            @id
+  category       String?
+  deckPrinciples DeckPrinciple[]
+}
+
+model Deck {
+  deckId         String            @id @default(uuid())
+  name           String
+  description    String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  deletedAt      DateTime?
+  deckPrinciples DeckPrinciple[]
+}
+
+model DeckPrinciple {
+  deckId         String
+  principleId    String
+  projectContext String?
+  rank           Int?
+  deck           Deck              @relation(fields: [deckId], references: [deckId])
+  principle      Principle         @relation(fields: [principleId], references: [principleId])
+
+  @@id([deckId, principleId])
+}
+
+model PrincipleWorkItemMapping {
+  principleId    String
+  installationId String
+  workItemId     String
+  commentId      String
+
+  @@id([principleId, installationId, workItemId])
+}
+
+model WorkItemPrincipleSnapshot {
+  installationId String
+  workItemId     String
+  principleNames String[]
+  updatedAt      DateTime @updatedAt
+
+  @@id([installationId, workItemId])
+}

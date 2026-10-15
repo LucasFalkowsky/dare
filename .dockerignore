@@ -1,0 +1,16 @@
+**/node_modules
+dist
+src/frontend/dist
+.git
+.github
+.vscode
+.claude
+.env
+.env.*
+*.db
+*.log
+coverage
+storybook-static
+docs
+test
+README.md
